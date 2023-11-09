@@ -121,6 +121,29 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   // (lesson 02 - extra 5)
   it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
+    cy.get('[id="firstName"]')
+      .should('be.visible')
+      .type('nome')
+      .should('have.value', 'nome')
+      .clear().should('have.value', '')
+
+    cy.get('[id = "lastName"]')
+      .should('be.visible')
+      .type('sobrenome')
+      .should('have.value', 'sobrenome')
+      .clear().should('have.value', '')
+
+    cy.get('[id = "email"]')
+      .should('be.visible')
+      .type('teste@teste.com')
+      .should('have.value', 'teste@teste.com')
+      .clear().should('have.value', '')
+
+    cy.get('[id = "open-text-area"]')
+      .should('be.visible')
+      .type('Campo texto', { delay: 0 })
+      .should('have.value', 'Campo texto')
+      .clear().should('have.value', '')
 
   })
 
@@ -136,7 +159,10 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   // (lesson 02 - extra 7)
   it('envia o formuário com sucesso usando um comando customizado', () => {
+    cy.fillMandatoryFieldsAndSubmit()
 
+    cy.get('[class = "success"]')
+      .should('be.visible')
   })
 
   // (lesson 02 - extra 8)
