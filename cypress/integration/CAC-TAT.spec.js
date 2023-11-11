@@ -229,4 +229,42 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
+  //lesson 05
+  it('marca ambos checkboxes, depois desmarca o último', () => {
+    cy.get('input[type = "checkbox"]').check()
+      .last().uncheck()
+  })
+
+  //lesson 05 (extra)
+  it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário [usando .check()]', () => {
+    cy.get('input[type = "checkbox"]').check('phone')
+
+    cy.get('[id="firstName"]')
+      .should('be.visible')
+      .type('nome')
+      .should('have.value', 'nome')
+
+    cy.get('[id = "lastName"]')
+      .should('be.visible')
+      .type('sobrenome')
+      .should('have.value', 'sobrenome')
+
+    cy.get('[id = "email"]')
+      .should('be.visible')
+      .type('teste@teste.com')
+      .should('have.value', 'teste@teste.com')
+
+    cy.get('[id = "open-text-area"]')
+      .should('be.visible')
+      .type('Campo texto', { delay: 0 })
+      .should('have.value', 'Campo texto')
+
+    cy.get('[class="button"]')
+      .should('have.text', 'Enviar')
+      .click()
+
+    cy.get('.error')
+      .should('be.visible')
+
+  })
 })
