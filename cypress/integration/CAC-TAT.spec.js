@@ -308,4 +308,56 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#title').should('have.text', 'CAC TAT - Política de privacidade')
   })
 
+  // lesson 11
+  it('testes que verificam mensagens de erro usando clock e tick', () => {
+    cy.clock()
+    cy.get('[class = "button"]')
+      .should('have.text', 'Enviar')
+      .click()
+    cy.get('.error')
+      .should('be.visible')
+
+    cy.tick(3000)
+    cy.get('.error')
+      .should('not.be.visible')
+  })
+
+  // lesson 11
+  it('testes que verificam mensagens de sucesso usando clock e tick', () => {
+    cy.clock()
+    cy.get('[id="firstName"]')
+      .should('be.visible')
+      .type('nome')
+      .should('have.value', 'nome')
+
+    cy.get('[id = "lastName"]')
+      .should('be.visible')
+      .type('sobrenome')
+      .should('have.value', 'sobrenome')
+
+    cy.get('[id = "email"]')
+      .should('be.visible')
+      .type('teste@teste.com')
+      .should('have.value', 'teste@teste.com')
+
+    cy.get('[id = "open-text-area"]')
+      .should('be.visible')
+      .type('Portanto, experimente digitar um texto longo na área de texto, passando como segundo argumento do comando', { delay: 0 })
+      .should('have.value', 'Portanto, experimente digitar um texto longo na área de texto, passando como segundo argumento do comando')
+
+    cy.get('[class = "success"]')
+      .should('not.be.visible')
+
+    cy.get('[class="button"]')
+      .should('have.text', 'Enviar')
+      .click()
+    cy.get('[class = "success"]')
+      .should('be.visible')
+
+    // valida o desaparecimento da mensagem de sucesso
+    cy.tick(3000)
+    cy.get('[class = "success"]')
+      .should('not.be.visible')
+  })
+
 })
